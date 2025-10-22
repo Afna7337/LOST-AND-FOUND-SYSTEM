@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { width: 90%; max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
+        .header { text-align: center; padding-bottom: 20px; border-bottom: 1px solid #ddd; }
+        .header h1 { color: #2980b9; }
+        .content { padding: 20px 0; }
+        .status-box { padding: 15px; border-radius: 5px; text-align: center; font-size: 1.2em; font-weight: bold; color: #fff; }
+        .status-approved { background-color: #27ae60; }
+        .status-rejected { background-color: #e74c3c; }
+        .button { display: inline-block; padding: 10px 20px; margin-top: 20px; background-color: #3498db; color: #fff; text-decoration: none; border-radius: 5px; }
+        .footer { text-align: center; font-size: 0.9em; color: #777; padding-top: 20px; border-top: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Lost & Found Portal</h1>
+        </div>
+        <div class="content">
+            <p>Hello {{ username }},</p>
+            <p>This is an update regarding your claim for the item: <strong>{{ item_name }}</strong>.</p>
+            <p>An administrator has reviewed your claim and its status has been updated to:</p>
+            
+            {% if status == 'approved' %}
+                <div class="status-box status-approved">
+                    Approved
+                </div>
+                <p style="margin-top: 20px;">
+                    Congratulations! Please contact the administration or visit the station where the item was found to arrange for pickup.
+                </p>
+            {% elif status == 'rejected' %}
+                <div class="status-box status-rejected">
+                    Rejected
+                </div>
+                <p style="margin-top: 20px;">
+                    Unfortunately, your claim has been rejected at this time. This may be due to insufficient information or another user providing a more accurate description.
+                </p>
+            {% endif %}
+
+            <p>You can view the item details by clicking the button below:</p>
+            <div style="text-align: center;">
+                <a href="{{ url_for('item_details', item_id=item_id, _external=True) }}" class="button">View Item</a>
+            </div>
+        </div>
+        <div class="footer">
+            <p>This is an automated notification. Please do not reply to this email.</p>
+            <p>&copy; Lost & Found System</p>
+        </div>
+    </div>
+</body>
+</html>
